@@ -67,7 +67,7 @@ function QuizUI(array) {
 		element.innerHTML = text;
 	},
 	this.displayScore = function() {
-		var end = "<h1>End of game</h1><br><h4>Broj tacnih odgovora je: " + array.score + "</h4>";
+		var end = "<h1>End of game</h1><br><h4>Broj tacnih odgovora je: " + array.score + "/" + array.questions.length + "</h4>";
 		this.populateHtml('question', end);
 	}
 };
@@ -86,14 +86,16 @@ var buttonThrones = document.getElementById("gameOfThrones");
 var buttonHarry = document.getElementById("harryPotter");
 
 var thrones = new Quiz(thrones);
-console.log(thrones);
-buttonThrones.onclick = function() {
-	
+
+buttonThrones.onclick = function(e) {
+	e.preventDefault();
 	new QuizUI(thrones).display();
 };
+
 var harry = new Quiz(potter);
-buttonHarry.onclick = function() {
-	
+
+buttonHarry.onclick = function(e) {
+	e.preventDefault();
 	new QuizUI(harry).display();
 };
 
