@@ -33,49 +33,70 @@ Quiz.prototype.isEnd = function () {
 };
 
 //HANDLING UPDATES AND USER INTERFACE
-var QuizUI = {
+function QuizUI(array) {
+	this.array = array;
 	//METHOD TO DISPLAY NEXT QUESTION
-	display: function() {
-		if (Quiz.isEnd()) {
+	this.display = function() {
+		if (array.isEnd()) {
 			this.displayScore();
 		} else {
 			this.displayQuestion();
 			this.displayAnswers();	
 		}
 	},
-	displayQuestion: function() {
-		this.populateHtml('question', Quiz.gerCurrentQuestion().text);
+	this.displayQuestion = function() {
+		this.populateHtml('question', array.gerCurrentQuestion().text);
 	},
-	displayAnswers: function() {
-		var answers = Quiz.gerCurrentQuestion().answers;
-		console.log(answers);
+	this.displayAnswers = function() {
+		var answers = array.gerCurrentQuestion().answers;
 		for (var i = 0; i < answers.length; i++) {
 			this.populateHtml('choice' + i, answers[i]);
 			this.handleGuess('quess' + i, answers[i]);
 		};
 	},
-	handleGuess: function(id, guess) {
+	this.handleGuess = function(id, guess) {
 		var btn = document.getElementById(id);
 		btn.onclick = function() {
-			Quiz.guess(guess);
-			QuizUI.display();
+			array.guess(guess);
+			new QuizUI(array).display();
 		}
 	},
-	populateHtml: function(id, text) {
+	this.populateHtml = function(id, text) {
 		var element = document.querySelector('#' + id);
 		//element.style.display = 'none';
 		element.innerHTML = text;
 	},
-	displayScore: function() {
-		var end = "<h1>End of game</h1><br><h4>Broj tacnih odgovora je: " + Quiz.score + "</h4>";
-		this.populateHtml('quiz', end);
+	this.displayScore = function() {
+		var end = "<h1>End of game</h1><br><h4>Broj tacnih odgovora je: " + array.score + "</h4>";
+		this.populateHtml('question', end);
 	}
 };
 
-var questions = [
+var thrones = [
 	new Question("Simbol kuce Stark je?", ["Vuk", "Lav", "Orao", "Medved"], "Vuk"),
 	new Question("Pisac knjige Pesme leda i vatre je?", ["J. K. Rowling", "R. R. Martin", "Brandon Sanders", "J. R. R. Tolkin"], "R. R. Martin")
 ];
-var Quiz = new Quiz(questions);
-QuizUI.display();
+
+var potter = [
+	new Question("U kojoj kuci Hogvortsa je bio Hari?", ["Grifindor", "Hapflpaf", "Revenklo", "Sliterin"], "Grifindor"),
+	new Question("Kako se zvala Harijeva sova?", ["Hagrid", "Hermiona", "Helga", "Hedvig"], "Hedvig")
+];
+
+var buttonThrones = document.getElementById("gameOfThrones");
+var buttonHarry = document.getElementById("harryPotter");
+
+var thrones = new Quiz(thrones);
+console.log(thrones);
+buttonThrones.onclick = function() {
+	
+	new QuizUI(thrones).display();
+};
+var harry = new Quiz(potter);
+buttonHarry.onclick = function() {
+	
+	new QuizUI(harry).display();
+};
+
+
+
 
