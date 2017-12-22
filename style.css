@@ -1,4 +1,52 @@
-button {
+#areasContainer {
+	position: absolute;
+	top: 50%;
+	margin-top: -100px;
+	left: 0;
+	width: 100%;
+}
+.areas {
+	width: fit-content;
+	margin: 0 auto;
+}
+.areas button {
+	outline: none;
+	color: white;
+	font-weight: bold;
+	font-size: 35px;
+	border: none;
+	background-color: #782626;
+	border-radius: 10px;
+	box-shadow: 2px 2px 2px 2px grey;
+	cursor: pointer;
 	width: 200px;
 	height: 80px;
+}
+.areas button:hover{
+	background-color: #3C1313;
+	transform: scale(1.1);
+}
+#quiz {
+	text-align: center;
+	width: 700px;
+	margin: 0 auto;
+	padding-top: 150px;
+}
+#quiz button {
+	height: 50px;
+	width: 150px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	color: white;
+	background-color: #57A0D6;
+	font-size: 15px;
+}
+#quiz p {
+	font-weight: bold;
+	font-size: 25px;
+}
+#quiz h1 {
+	font-weight: 800;
+	font-size: 35px;
 }

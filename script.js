@@ -67,8 +67,9 @@ function QuizUI(array) {
 		element.innerHTML = text;
 	},
 	this.displayScore = function() {
-		var end = "<h1>End of game</h1><br><h4>Broj tacnih odgovora je: " + array.score + "/" + array.questions.length + "</h4>";
+		var end = "<h1>End of game</h1><br><h4>Broj tacnih odgovora je: " + array.score + "/" + array.questions.length + "</h4><br><button onclick='window.location.reload()'>Pokusaj opet</button>";
 		this.populateHtml('question', end);
+		answersCont.style.display = "none";
 	}
 };
 
@@ -84,12 +85,17 @@ var potter = [
 
 var buttonThrones = document.getElementById("gameOfThrones");
 var buttonHarry = document.getElementById("harryPotter");
+var answersCont = document.getElementById('answersContainer');
 
 var thrones = new Quiz(thrones);
+answersCont.style.display = "none";
+var areasContainer = document.getElementById('areasContainer');
 
 buttonThrones.onclick = function(e) {
 	e.preventDefault();
 	new QuizUI(thrones).display();
+	answersCont.style.display = "block";
+	areasContainer.style.display = "none";
 };
 
 var harry = new Quiz(potter);
@@ -97,6 +103,8 @@ var harry = new Quiz(potter);
 buttonHarry.onclick = function(e) {
 	e.preventDefault();
 	new QuizUI(harry).display();
+	answersCont.style.display = "block";
+	areasContainer.style.display = "none";
 };
 
 
