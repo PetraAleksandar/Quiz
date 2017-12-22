@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico|Satisfy');
 #areasContainer {
 	position: absolute;
 	top: 50%;
@@ -11,7 +12,7 @@
 	text-align: center;
 }
 .areas h1 {
-	font: 45px satisfy, cursive;
+	font: 45px pacifico, cursive;
 	font-weight: 900;
 	color: #782626;
 }
@@ -19,7 +20,7 @@
 	outline: none;
 	color: white;
 	font-weight: bold;
-	font-size: 35px;
+	font: 35px pacifico, cursive;;
 	border: none;
 	background-color: #782626;
 	border-radius: 10px;
