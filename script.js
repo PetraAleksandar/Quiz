@@ -182,33 +182,23 @@ var buttonOnePiece = document.getElementById("onePiece");
 var answersCont = document.getElementById('answersContainer');
 
 var thrones = new Quiz(thrones);
+var harry = new Quiz(potter);
+var piece = new Quiz(onePiece);
+
 answersCont.style.display = "none";
 var areasContainer = document.getElementById('areasContainer');
 
-buttonThrones.onclick = (e) => {
-	e.preventDefault();
-	new QuizUI(thrones).display();
-	answersCont.style.display = "block";
-	areasContainer.style.display = "none";
-};
 
-var harry = new Quiz(potter);
-
-buttonHarry.onclick = (e) => {
-	e.preventDefault();
-	new QuizUI(harry).display();
-	answersCont.style.display = "block";
-	areasContainer.style.display = "none";
-};
-
-var piece = new Quiz(onePiece);
-
-buttonOnePiece.onclick = (e) => {
-	e.preventDefault();
-	new QuizUI(piece).display();
+var loadQuiz = (quiz) => {
+	new QuizUI(quiz).display();
 	answersCont.style.display = "block";
 	areasContainer.style.display = "none";
 }
+
+buttonThrones.addEventListener("click", function(){loadQuiz(thrones)});
+buttonHarry.addEventListener("click", function(){loadQuiz(harry)});
+buttonOnePiece.addEventListener("click", function(){loadQuiz(piece)});
+
 
 
 
