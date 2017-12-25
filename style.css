@@ -20,7 +20,7 @@
 	outline: none;
 	color: white;
 	font-weight: bold;
-	font: 35px pacifico, cursive;;
+	font: 35px satisfy, cursive;
 	border: none;
 	background-color: #782626;
 	border-radius: 10px;
@@ -47,13 +47,13 @@
 	cursor: pointer;
 	color: white;
 	background-color: #57A0D6;
-	font-size: 15px;
+	font: 15px satisfy, cursive;;
 }
 #quiz p {
 	font-weight: bold;
-	font-size: 25px;
+	font: 25px pacifico, cursive;
 }
 #quiz h1 {
 	font-weight: 800;
-	font-size: 35px;
+	font: 35px pacifico, cursive;
 }

@@ -1,4 +1,6 @@
 
+
+/*
 //QUESTION CONSTRUCTOR
 function Question(text, answers, correct) {
 	this.text = text;
@@ -9,7 +11,18 @@ function Question(text, answers, correct) {
 Question.prototype.isCorrectAnswer = function(choice) {
 	return this.correct === choice;
 };
+*/
 
+//ES6 Question
+class Question {
+	constructor (text, answers, correct) {
+		this.text = text;
+		this.answers = answers;
+		this.correct = correct;
+	}
+	isCorrectAnswer(choice) { return this.correct === choice; } 
+}
+/*
 //QUIZ FUNCTION
 function Quiz(questions) {
 	this.score = 0;
@@ -17,12 +30,12 @@ function Quiz(questions) {
 	this.questions = questions;
 }
 //METHOD FOR CURRENT QUESTION
-Quiz.prototype.gerCurrentQuestion = function () {
+Quiz.prototype.getCurrentQuestion = function () {
 	return this.questions[this.questionIndex];
 };
 //METHOD FOR SCORE AND NEXT QUESTION INDEX
 Quiz.prototype.guess = function (answer) {
-	if (this.gerCurrentQuestion().isCorrectAnswer(answer)) {
+	if (this.getCurrentQuestion().isCorrectAnswer(answer)) {
 		this.score ++;
 	};
 	this.questionIndex ++;
@@ -31,7 +44,29 @@ Quiz.prototype.guess = function (answer) {
 Quiz.prototype.isEnd = function () {
 	return this.questionIndex >= this.questions.length;
 };
+*/
 
+//ES6 Quiz
+class Quiz {
+	constructor(questions) {
+		this.questions = questions;
+		this.score = 0;
+		this.questionIndex = 0;
+	}
+	getCurrentQuestion() {
+		return this.questions[this.questionIndex];
+	}
+	guess(answer) {
+		if (this.getCurrentQuestion().isCorrectAnswer(answer)) {
+			this.score ++;
+		}
+		this.questionIndex ++;
+	}
+	isEnd() {
+		return this.questionIndex >= this.questions.length;
+	}
+}
+/*
 //HANDLING UPDATES AND USER INTERFACE
 function QuizUI(array) {
 	this.array = array;
@@ -45,10 +80,10 @@ function QuizUI(array) {
 		}
 	},
 	this.displayQuestion = function() {
-		this.populateHtml('question', array.gerCurrentQuestion().text);
+		this.populateHtml('question', array.getCurrentQuestion().text);
 	},
 	this.displayAnswers = function() {
-		var answers = array.gerCurrentQuestion().answers;
+		var answers = array.getCurrentQuestion().answers;
 		for (var i = 0; i < answers.length; i++) {
 			this.populateHtml('choice' + i, answers[i]);
 			this.handleGuess('quess' + i, answers[i]);
@@ -67,12 +102,55 @@ function QuizUI(array) {
 		element.innerHTML = text;
 	},
 	this.displayScore = function() {
-		var end = "<h1>End of game</h1><br><h4>Broj tacnih odgovora je: " + array.score + "/" + array.questions.length +
-		"</h4><br><button onclick='window.location.reload()'>Pokusaj opet</button>";
+		var end = `<h1>End of game</h1><br><h4>Broj tacnih odgovora je: ${array.score}/${array.questions.length}
+		</h4><br><button onclick='window.location.reload()'>Pokusaj opet</button>`;
 		this.populateHtml('question', end);
 		answersCont.style.display = "none";
 	}
-};
+};*/
+
+
+//ES6 QuizUI
+class QuizUI {
+	constructor(array) {
+		this.array = array;
+	}
+	display() {
+		if (this.array.isEnd()) {
+			this.displayScore();
+		} else {
+			this.displayQuestion();
+			this.displayAnswers();	
+		}
+	}
+	displayQuestion() {
+		this.populateHtml('question', this.array.getCurrentQuestion().text);
+	}
+	displayAnswers() {
+		var answers = this.array.getCurrentQuestion().answers;
+		for (var i = 0; i < answers.length; i++) {
+			this.populateHtml('choice' + i, answers[i]);
+			this.handleGuess('quess' + i, answers[i]);
+		};
+	}
+	handleGuess(id, quess) {
+		var btn = document.getElementById(id);
+		btn.onclick = () => {
+			this.array.guess(quess);
+			new QuizUI(this.array).display();
+		}
+	}
+	populateHtml(id, text) {
+		var element = document.querySelector('#' + id);
+		element.innerHTML = text;
+	}
+	displayScore() {
+		var end = `<h1>End of game</h1><br><h4>Broj tacnih odgovora je: ${this.array.score}/${this.array.questions.length}
+		</h4><br><button onclick='window.location.reload()'>Pokusaj opet</button>`;
+		this.populateHtml('question', end);
+		answersCont.style.display = "none";
+	}
+}
 
 var thrones = [
 	new Question("Simbol kuce Stark je?", ["Vuk", "Lav", "Orao", "Medved"], "Vuk"),
@@ -107,7 +185,7 @@ var thrones = new Quiz(thrones);
 answersCont.style.display = "none";
 var areasContainer = document.getElementById('areasContainer');
 
-buttonThrones.onclick = function(e) {
+buttonThrones.onclick = (e) => {
 	e.preventDefault();
 	new QuizUI(thrones).display();
 	answersCont.style.display = "block";
@@ -116,7 +194,7 @@ buttonThrones.onclick = function(e) {
 
 var harry = new Quiz(potter);
 
-buttonHarry.onclick = function(e) {
+buttonHarry.onclick = (e) => {
 	e.preventDefault();
 	new QuizUI(harry).display();
 	answersCont.style.display = "block";
@@ -125,7 +203,7 @@ buttonHarry.onclick = function(e) {
 
 var piece = new Quiz(onePiece);
 
-buttonOnePiece.onclick = function (e) {
+buttonOnePiece.onclick = (e) => {
 	e.preventDefault();
 	new QuizUI(piece).display();
 	answersCont.style.display = "block";
